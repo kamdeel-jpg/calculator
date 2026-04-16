@@ -1,0 +1,25 @@
+name: Проверка калькулятора
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  html-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Скачать код из репозитория
+        uses: actions/checkout@v4
+
+      - name: Проверить наличие файла
+        run: |
+          if [ -f calculator.html ]; then
+            echo "✅ Файл calculator.html найден"
+          else
+            echo "❌ Файл не найден" && exit 1
+          fi
+
+      - name: Показать первые 5 строк файла
+        run: head -n 5 calculator.html
